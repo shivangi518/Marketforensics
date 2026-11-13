@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Model · MarketForensics{% endblock %}
+{% block head %}<script src="{{ url_for('plotly_js') }}"></script>{% endblock %}
+{% block content %}
+<section class="page-header">
+  <p class="eyebrow">Model evaluation</p>
+  <h1>Performance on later dates</h1>
+  <p>The forest is evaluated after the training period ends.</p>
+</section>
+
+{% if metrics %}
+<section class="metric-row">
+  <article><p>Test accuracy</p><strong>{{ "%.1f"|format(metrics.accuracy * 100) }}%</strong></article>
+  <article><p>Training cases</p><strong>{{ metrics.n_train }}</strong></article>
+  <article><p>Test cases</p><strong>{{ metrics.n_test }}</strong></article>
+  <article><p>Test begins</p><strong class="date-value">{{ metrics.test_first_date }}</strong></article>
+</section>
+
+<section class="notice">
+  <strong>Interpretation matters.</strong>
+  <p>{{ metrics.honest_notes[0] }}</p>
+</section>
+
+<section class="chart-grid two">
+  <article class="panel chart-panel"><div id="confusion-chart"></div></article>
+  <article class="panel chart-panel"><div id="importance-chart"></div></article>
+</section>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    renderPlot("confusion-chart", {{ confusion_chart|safe }});
+    renderPlot("importance-chart", {{ importance_chart|safe }});
+  });
+</script>
+{% else %}
+<section class="notice"><strong>Model output unavailable.</strong><p>Run pipeline step 6, then reload this page.</p></section>
+{% endif %}
+{% endblock %}

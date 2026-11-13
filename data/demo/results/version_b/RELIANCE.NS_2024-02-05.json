@@ -1,0 +1,11 @@
+{
+  "version": "B",
+  "vote": "stock_specific",
+  "opinions": {
+    "numbers": "{\"explanation\": \"Numbers desk: vol shock 1.11\\u00d7 and vs-Nifty -3.18%.\", \"confidence\": 70, \"cause\": \"stock_specific\", \"direction\": \"down\"}",
+    "news": "{\"explanation\": \"News desk: demo headlines only; do not treat as a complete clip file.\", \"confidence\": 45, \"cause\": \"stock_specific\", \"direction\": \"down\"}",
+    "skeptic": "{\"explanation\": \"Skeptic: weak labels and daily bars cannot prove a single cause.\", \"confidence\": 38, \"cause\": \"unknown\", \"direction\": \"unclear\"}"
+  },
+  "ticker": "RELIANCE.NS",
+  "date": "2024-02-05"
+}

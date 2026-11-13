@@ -1,0 +1,6 @@
+{
+  "version": "A",
+  "ticker": "RELIANCE.NS",
+  "date": "2024-03-19",
+  "raw": "{\"explanation\": \"Solo agent: RELIANCE.NS moved -7.23% on 2024-03-19. Volume was 1.51\\u00d7 the 20-day average and the stock beat/lagged Nifty by -1.79%. Working cause: market_wide.\", \"confidence\": 64, \"cause\": \"market_wide\", \"direction\": \"down\"}"
+}

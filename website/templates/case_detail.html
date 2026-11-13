@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ case.ticker }} · MarketForensics{% endblock %}
+{% block head %}<script src="{{ url_for('plotly_js') }}"></script>{% endblock %}
+{% block content %}
+<nav class="breadcrumb"><a href="{{ url_for('cases_page') }}">Cases</a><span>/</span><span>{{ case.ticker }}</span></nav>
+
+<section class="page-header compact">
+  <p class="eyebrow">{{ case.date }}</p>
+  <div class="security-heading">
+    <div><h1>{{ case.ticker }}</h1><span class="label label-{{ case.label }}">{{ case.label|replace('_', ' ') }}</span></div>
+    <div class="security-actions">
+      <button class="button secondary dark-text" type="button" data-watch="{{ case.ticker }}">☆ Add to watchlist</button>
+      <a class="button secondary dark-text" href="{{ url_for('export_case', ticker=case.ticker, date=case.date) }}">Export CSV</a>
+    </div>
+  </div>
+</section>
+
+<section class="metric-row">
+  <article><p>Daily return · previous close</p><strong class="{{ 'positive' if case.return_pct >= 0 else 'negative' }}">{{ '▲' if case.return_pct >= 0 else '▼' }} {{ "%+.2f"|format(case.return_pct) }}%</strong></article>
+  <article><p>Gap · same-day Nifty</p><strong>{{ "%+.2f"|format(case.vs_nifty) }}%</strong></article>
+  <article><p>Volume · prior 20-day average</p><strong>{{ "%.2f"|format(case.volume_vs_avg20) }}×</strong></article>
+  <article><p>Volatility · trailing 20 days</p><strong>{{ "%.2f"|format(case.vol_20) }}%</strong></article>
+</section>
+
+<div class="chart-toolbar">
+  <div class="timeframe-pills" aria-label="Chart timeframe">
+    {% for key, label in ranges %}
+    <a href="{{ url_for('case_detail', ticker=case.ticker, date=case.date, range=key) }}" {% if selected_range == key %}aria-current="true"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </div>
+  <span class="delayed-badge">Daily data · saved close</span>
+</div>
+<article class="panel chart-panel full price-panel">
+  <div id="price-chart" role="img" aria-label="Candlestick chart with optional volume, moving averages and RSI"></div>
+  <p class="chart-note">Use the legend to show Line, MA20, MA50, or RSI. The toolbar supports zoom, pan, and trendlines.</p>
+</article>
+
+<section class="detail-grid">
+  <article class="panel">
+    <p class="eyebrow">Interpretation boundary</p>
+    <h2>What this label means</h2>
+    <p>The label follows a published numerical rule. It is not a verified corporate cause.</p>
+  </article>
+  <article class="panel">
+    <p class="eyebrow">Data boundary</p>
+    <h2>No future leakage</h2>
+    <p>Features use prices available through this session’s close only.</p>
+  </article>
+</section>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => renderPlot("price-chart", {{ price_chart|safe }}));
+</script>
+{% endblock %}

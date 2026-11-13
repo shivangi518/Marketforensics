@@ -1,0 +1,9 @@
+{
+  "n": 12,
+  "direction_match_21d": 0.54,
+  "version_a_win_rate": 0.5,
+  "version_b_win_rate": 0.56,
+  "version_c_win_rate": 0.62,
+  "note": "Demo backtest numbers for UI. Educational only \u2014 not a trading result.",
+  "demo": true
+}

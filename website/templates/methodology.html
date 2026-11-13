@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Methodology · MarketForensics{% endblock %}
+{% block content %}
+<section class="page-header">
+  <p class="eyebrow">Methodology</p>
+  <h1>Transparent by design</h1>
+  <p>Every threshold and data boundary is explicit.</p>
+</section>
+
+<section class="method-steps">
+  <article><span>01</span><div><h2>Collect</h2><p>Download adjusted daily OHLCV data for NSE stocks and Nifty.</p></div></article>
+  <article><span>02</span><div><h2>Align</h2><p>Use the Nifty calendar. Remove invalid closes. Do not forward-fill.</p></div></article>
+  <article><span>03</span><div><h2>Detect</h2><p>Flag moves at least 2.5× the prior 20-day volatility.</p></div></article>
+  <article><span>04</span><div><h2>Describe</h2><p>Build return, volatility, volume, momentum, and Nifty-relative features.</p></div></article>
+  <article><span>05</span><div><h2>Label</h2><p>Apply market-wide, stock-specific, volume-shock, then unknown rules.</p></div></article>
+  <article><span>06</span><div><h2>Evaluate</h2><p>Train on older dates and score on later dates.</p></div></article>
+</section>
+
+<section class="section-heading">
+  <div><p class="eyebrow">Trust boundaries</p><h2>What the project does not claim</h2></div>
+</section>
+<section class="principles">
+  <article><span>A</span><h3>No causal proof</h3><p>Daily bars cannot verify a corporate cause.</p></article>
+  <article><span>B</span><h3>No trading signal</h3><p>The site does not recommend positions.</p></article>
+  <article><span>C</span><h3>No hidden data</h3><p>Displayed counts come from saved project files.</p></article>
+</section>
+{% endblock %}

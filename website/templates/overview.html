@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Overview · MarketForensics{% endblock %}
+{% block head %}<script src="{{ url_for('plotly_js') }}"></script>{% endblock %}
+{% block content %}
+<section class="intro">
+  <div class="intro-copy">
+    <p class="eyebrow">NSE market analysis</p>
+    <h1>Investigate unusual market moves.</h1>
+    <p>Real prices, explicit rules, and evaluation on later dates.</p>
+    <div class="actions">
+      <a class="button primary" href="{{ url_for('cases_page') }}">Explore cases</a>
+      <a class="button secondary" href="{{ url_for('methodology_page') }}">Read methodology</a>
+    </div>
+  </div>
+  <div class="summary-panel" aria-label="Current dataset summary">
+    <div class="summary-heading">
+      <span>Current dataset</span>
+      <span class="status"><i></i> Available</span>
+    </div>
+    <dl>
+      <div><dt>Latest case</dt><dd>{{ overview.last_date }}</dd></div>
+      <div><dt>Detection rule</dt><dd>2.5× prior volatility</dd></div>
+      <div><dt>Evaluation</dt><dd>Time-based split</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="stat-grid" aria-label="Project statistics">
+  <article><span data-count="{{ overview.case_count }}">0</span><p>Detected cases · total</p></article>
+  <article><span data-count="{{ overview.stock_count }}">0</span><p>NSE stocks · universe</p></article>
+  <article><span data-count="{{ "%.1f"|format(overview.accuracy) }}" data-suffix="%">0</span><p>Test accuracy · later dates</p></article>
+  <article><span data-count="{{ overview.days }}">0</span><p>Trading days · per series</p></article>
+</section>
+
+<section class="movers-grid">
+  <article class="panel movers-panel">
+    <header><div><p class="eyebrow">Latest saved close</p><h2>Top gainers</h2></div><span class="delayed-badge">Delayed data</span></header>
+    {% for item in gainers %}
+    <div class="mover-row">
+      <div><button class="watch-star" type="button" data-watch="{{ item.ticker }}" aria-label="Add {{ item.ticker }} to watchlist">☆</button><strong>{{ item.ticker }}</strong></div>
+      <svg class="sparkline" data-values='{{ item.spark|tojson }}' aria-label="{{ item.ticker }} recent price trend"></svg>
+      <span class="positive">▲ {{ "%+.2f"|format(item.change) }}%</span>
+    </div>
+    {% endfor %}
+  </article>
+  <article class="panel movers-panel">
+    <header><div><p class="eyebrow">Latest saved close</p><h2>Top losers</h2></div><span class="delayed-badge">Delayed data</span></header>
+    {% for item in losers %}
+    <div class="mover-row">
+      <div><button class="watch-star" type="button" data-watch="{{ item.ticker }}" aria-label="Add {{ item.ticker }} to watchlist">☆</button><strong>{{ item.ticker }}</strong></div>
+      <svg class="sparkline" data-values='{{ item.spark|tojson }}' aria-label="{{ item.ticker }} recent price trend"></svg>
+      <span class="negative">▼ {{ "%+.2f"|format(item.change) }}%</span>
+    </div>
+    {% endfor %}
+  </article>
+</section>
+
+<section class="section-heading">
+  <div>
+    <p class="eyebrow">Dataset overview</p>
+    <h2>What the sample contains</h2>
+  </div>
+  <p>Counts come directly from saved pipeline outputs.</p>
+</section>
+
+<section class="chart-grid widget-grid" data-widget-grid>
+  <article class="panel chart-panel widget" draggable="true" data-widget="labels"><button class="drag-handle" aria-label="Drag case labels widget">Move</button><div id="label-chart"></div></article>
+  <article class="panel chart-panel widget" draggable="true" data-widget="monthly"><button class="drag-handle" aria-label="Drag monthly widget">Move</button><div id="monthly-chart"></div></article>
+  <article class="panel chart-panel widget" draggable="true" data-widget="activity"><button class="drag-handle" aria-label="Drag activity map widget">Move</button><div id="activity-chart"></div></article>
+  <article class="panel chart-panel widget" draggable="true" data-widget="stocks"><button class="drag-handle" aria-label="Drag stock activity widget">Move</button><div id="stock-chart"></div></article>
+</section>
+
+<section class="principles">
+  <article><span>01</span><h3>Stock-relative detection</h3><p>Each stock is judged against its own prior volatility.</p></article>
+  <article><span>02</span><h3>No future rows</h3><p>Features stop at the event-day close.</p></article>
+  <article><span>03</span><h3>Later-date evaluation</h3><p>Older cases train; newer cases test.</p></article>
+</section>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    renderPlot("label-chart", {{ label_chart|safe }});
+    renderPlot("monthly-chart", {{ monthly_chart|safe }});
+    renderPlot("stock-chart", {{ stock_chart|safe }});
+    renderPlot("activity-chart", {{ activity_chart|safe }});
+  });
+</script>
+{% endblock %}

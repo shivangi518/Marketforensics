@@ -1,0 +1,6 @@
+{
+  "version": "A",
+  "ticker": "HDFCBANK.NS",
+  "date": "2024-03-19",
+  "raw": "{\"explanation\": \"Solo agent: HDFCBANK.NS moved -6.02% on 2024-03-19. Volume was 1.92\\u00d7 the 20-day average and the stock beat/lagged Nifty by -0.58%. Working cause: market_wide.\", \"confidence\": 64, \"cause\": \"market_wide\", \"direction\": \"down\"}"
+}

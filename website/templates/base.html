@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MarketForensics investigates unusual NSE stock movements with transparent rules and later-date model evaluation.">
+  <title>{% block title %}MarketForensics{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+  <script defer src="{{ url_for('static', filename='js/site.js') }}"></script>
+  {% block head %}{% endblock %}
+</head>
+<body data-theme="dark">
+  <div class="market-strip" aria-label="Latest saved market closes">
+    <div class="market-strip-inner">
+      <span class="delay-label">Saved close · delayed</span>
+      {% for item in market_strip %}
+      <span class="market-item">
+        <strong>{{ item.ticker }}</strong>
+        <span class="quote">{{ "%.2f"|format(item.close) }}</span>
+        <span class="{{ 'positive' if item.change >= 0 else 'negative' }}">
+          {{ '▲' if item.change >= 0 else '▼' }} {{ "%+.2f"|format(item.change) }}%
+        </span>
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="{{ url_for('overview') }}" aria-label="MarketForensics home">
+        <span class="brand-mark">MF</span>
+        <span>MarketForensics</span>
+      </a>
+      <form class="command-search" action="{{ url_for('cases_page') }}" method="get" role="search">
+        <label class="sr-only" for="ticker-search">Search ticker</label>
+        <input id="ticker-search" name="ticker" list="ticker-list" placeholder="Search RELIANCE, TCS…" autocomplete="off">
+        <kbd>/</kbd>
+        <datalist id="ticker-list">
+          {% for ticker in search_tickers %}<option value="{{ ticker }}">{% endfor %}
+        </datalist>
+      </form>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        <a href="{{ url_for('overview') }}" {% if active_path == '/' %}aria-current="page"{% endif %}>Markets</a>
+        <button class="nav-action" type="button" data-watchlist-open>Watchlist <span id="watchlist-count">0</span></button>
+        <a href="{{ url_for('cases_page') }}" {% if active_path.startswith('/case') %}aria-current="page"{% endif %}>Screener</a>
+        <a href="{{ url_for('model_page') }}" {% if active_path == '/model' %}aria-current="page"{% endif %}>Analytics</a>
+        <a href="{{ url_for('investigations_page') }}" {% if active_path == '/investigations' %}aria-current="page"{% endif %}>Research</a>
+        <a href="{{ url_for('methodology_page') }}" {% if active_path == '/methodology' %}aria-current="page"{% endif %}>Method</a>
+      </nav>
+      <div class="nav-tools">
+        <span class="market-status" title="Calendar-based NSE session estimate"><i></i><span id="market-state">Checking</span></span>
+        <time id="market-clock" aria-label="India Standard Time">--:--:-- IST</time>
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle light and dark theme">Theme</button>
+        <button class="icon-button" type="button" data-color-toggle aria-label="Toggle color-blind palette">A11y</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>MarketForensics</strong>
+      <p>Not investment advice. Past performance does not guarantee future results.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://finance.yahoo.com/" rel="noreferrer">Data source</a>
+      <a href="https://scikit-learn.org/" rel="noreferrer">Model library</a>
+      <a href="{{ url_for('methodology_page') }}">Methodology</a>
+    </div>
+  </footer>
+
+  <nav class="mobile-tabs" aria-label="Mobile navigation">
+    <a href="{{ url_for('overview') }}">Markets</a>
+    <a href="{{ url_for('cases_page') }}">Screener</a>
+    <a href="{{ url_for('model_page') }}">Analytics</a>
+    <button type="button" data-watchlist-open>Watchlist</button>
+  </nav>
+
+  <dialog id="watchlist-dialog" aria-labelledby="watchlist-title">
+    <div class="dialog-head">
+      <div><p class="eyebrow">Local watchlist</p><h2 id="watchlist-title">Saved tickers</h2></div>
+      <button type="button" data-dialog-close aria-label="Close watchlist">Close</button>
+    </div>
+    <div id="watchlist-items" class="watchlist-items"></div>
+    <p class="dialog-note">Stored in this browser. No account or brokerage connection.</p>
+  </dialog>
+</body>
+</html>

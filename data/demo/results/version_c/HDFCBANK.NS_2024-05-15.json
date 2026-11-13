@@ -1,0 +1,16 @@
+{
+  "version": "C",
+  "round1": {
+    "numbers": "Round 1 numbers: HDFCBANK.NS -5.16% vs Nifty -6.09%.",
+    "news": "Round 1 news: only demo RSS-style titles exist; coverage may be missing.",
+    "skeptic": "Round 1 skeptic: a 2.5\u03c3 rule is a detector, not an explanation."
+  },
+  "round2": {
+    "numbers": "Round 2 numbers: volume still supports a liquidity/attention spike.",
+    "news": "Round 2 news: absence of a filing is not evidence of a clean story.",
+    "skeptic": "Round 2 skeptic: keep mystery high until better labels exist."
+  },
+  "chair": "{\"explanation\": \"Chair report for HDFCBANK.NS on 2024-05-15: the team leans market_wide with mixed confidence. Mystery remains 14%.\", \"confidence\": 68, \"cause\": \"market_wide\", \"direction\": \"down\", \"mystery_comment\": \"14% of the move is still unexplained in this demo.\"}",
+  "ticker": "HDFCBANK.NS",
+  "date": "2024-05-15"
+}

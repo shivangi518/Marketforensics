@@ -1,0 +1,6 @@
+{
+  "version": "A",
+  "ticker": "TCS.NS",
+  "date": "2024-02-27",
+  "raw": "{\"explanation\": \"Solo agent: TCS.NS moved 6.13% on 2024-02-27. Volume was 0.90\\u00d7 the 20-day average and the stock beat/lagged Nifty by 1.57%. Working cause: market_wide.\", \"confidence\": 64, \"cause\": \"market_wide\", \"direction\": \"up\"}"
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Investigations · MarketForensics{% endblock %}
+{% block content %}
+<section class="page-header">
+  <p class="eyebrow">Saved investigations</p>
+  <h1>Evidence-bounded case notes</h1>
+  <p>Generated notes are shown as interpretations, not verified causes.</p>
+</section>
+
+<section class="investigation-list">
+  {% for item in items %}
+  <article class="investigation panel">
+    <header>
+      <div><strong>{{ item.ticker }}</strong><span>{{ item.date }}</span></div>
+      <span class="label label-{{ item.cause }}">{{ item.cause|replace('_', ' ') }}</span>
+    </header>
+    <p>{{ item.explanation }}</p>
+    <footer>
+      <span>Direction: {{ item.direction }}</span>
+      <span>Confidence: {{ item.confidence }}%</span>
+    </footer>
+  </article>
+  {% else %}
+  <section class="notice"><strong>No saved notes.</strong><p>Run pipeline step 7 to create investigations.</p></section>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+{
+  "updated_at_utc": "2026-11-12T07:29:51.088950+00:00",
+  "items": [
+    {
+      "ticker": "NIFTY 50",
+      "symbol": "^NSEI",
+      "close": 25253.0,
+      "change": -0.008120281633017257,
+      "date": "2026-11-12"
+    },
+    {
+      "ticker": "SENSEX",
+      "symbol": "^BSESN",
+      "close": 81823.8515625,
+      "change": -0.06783986699950839,
+      "date": "2026-11-12"
+    },
+    {
+      "ticker": "S&P 500",
+      "symbol": "^GSPC",
+      "close": 7619.3798828125,
+      "change": 1.3090097199449646,
+      "date": "2026-11-11"
+    },
+    {
+      "ticker": "NASDAQ",
+      "symbol": "^IXIC",
+      "close": 25466.189453125,
+      "change": 1.5970733360735068,
+      "date": "2026-11-11"
+    },
+    {
+      "ticker": "BTC",
+      "symbol": "BTC-USD",
+      "close": 73510.8203125,
+      "change": -0.6133329220998407,
+      "date": "2026-11-12"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Cases · MarketForensics{% endblock %}
+{% block content %}
+<section class="page-header">
+  <p class="eyebrow">Case directory</p>
+  <h1>Detected market events</h1>
+  <p>Filter the saved cases. Open any row for its event window.</p>
+</section>
+
+<form class="filter-bar panel" method="get">
+  <label>Stock
+    <select name="ticker">
+      <option value="">All stocks</option>
+      {% for ticker in tickers %}
+      <option value="{{ ticker }}" {% if selected.ticker == ticker %}selected{% endif %}>{{ ticker }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Label
+    <select name="label">
+      <option value="">All labels</option>
+      {% for label in labels %}
+      <option value="{{ label }}" {% if selected.label == label %}selected{% endif %}>{{ label|replace('_', ' ')|title }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Minimum move
+    <input type="number" name="min_move" min="0" step="0.5" value="{{ selected.min_move }}">
+  </label>
+  <button class="button primary" type="submit">Apply filters</button>
+</form>
+
+<div class="table-toolbar">
+  <div class="table-summary">{{ total or 0 }} rows shown · latest first</div>
+  <div class="density-control" role="group" aria-label="Table density">
+    <button type="button" data-density="compact">Compact</button>
+    <button type="button" data-density="comfortable">Comfortable</button>
+  </div>
+</div>
+<div class="table-wrap panel" data-density-table>
+  <table data-sortable>
+    <thead>
+      <tr>
+        <th aria-label="Watchlist"></th>
+        <th><button data-sort="text">Stock</button></th>
+        <th><button data-sort="text">Date</button></th>
+        <th class="numeric"><button data-sort="number">Return</button></th>
+        <th>Label</th>
+        <th class="numeric"><button data-sort="number">vs Nifty</button></th>
+        <th class="numeric"><button data-sort="number">Volume</button></th>
+        <th>Recent trend</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td><button class="watch-star" type="button" data-watch="{{ row.ticker }}" aria-label="Add {{ row.ticker }} to watchlist">☆</button></td>
+        <td><a class="table-link" href="{{ url_for('case_detail', ticker=row.ticker, date=row.date) }}">{{ row.ticker }}</a></td>
+        <td>{{ row.date }}</td>
+        <td class="numeric {{ 'positive' if row.return_pct >= 0 else 'negative' }}" data-value="{{ row.return_pct }}">
+          {{ '▲' if row.return_pct >= 0 else '▼' }} {{ "%+.2f"|format(row.return_pct) }}%
+          {% if row.return_pct|abs >= 5 %}<span class="anomaly">Unusual</span>{% endif %}
+        </td>
+        <td><span class="label label-{{ row.label }}">{{ row.label|replace('_', ' ') }}</span></td>
+        <td class="numeric" data-value="{{ row.vs_nifty }}">{{ "%+.2f"|format(row.vs_nifty) }}%</td>
+        <td class="numeric" data-value="{{ row.volume_vs_avg20 }}">
+          {{ "%.2f"|format(row.volume_vs_avg20) }}×
+          {% if row.volume_vs_avg20 >= 3 %}<span class="anomaly">High</span>{% endif %}
+        </td>
+        <td><svg class="sparkline" data-values='{{ row.spark|tojson }}' aria-label="{{ row.ticker }} recent trend"></svg></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8" class="empty">No cases match these filters.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{
+  "RELIANCE.NS|2024-02-05": [
+    "volume vs 20d avg = 1.11",
+    "vs Nifty % = -3.18",
+    "event return % = -3.21"
+  ],
+  "RELIANCE.NS|2024-03-19": [
+    "volume vs 20d avg = 1.51",
+    "vs Nifty % = -1.79",
+    "event return % = -7.23"
+  ],
+  "RELIANCE.NS|2024-04-19": [
+    "volume vs 20d avg = 3.33",
+    "vs Nifty % = 0.68",
+    "event return % = 5.08"
+  ],
+  "RELIANCE.NS|2024-05-15": [
+    "volume vs 20d avg = 2.65",
+    "vs Nifty % = -0.01",
+    "event return % = -6.11"
+  ],
+  "TCS.NS|2024-02-27": [
+    "volume vs 20d avg = 0.90",
+    "vs Nifty % = 1.57",
+    "event return % = 6.13"
+  ],
+  "TCS.NS|2024-03-19": [
+    "volume vs 20d avg = 1.57",
+    "vs Nifty % = -0.28",
+    "event return % = -5.72"
+  ],
+  "TCS.NS|2024-04-19": [
+    "volume vs 20d avg = 2.72",
+    "vs Nifty % = 1.84",
+    "event return % = 6.24"
+  ],
+  "TCS.NS|2024-05-15": [
+    "volume vs 20d avg = 1.51",
+    "vs Nifty % = -1.06",
+    "event return % = -7.15"
+  ],
+  "HDFCBANK.NS|2024-02-27": [
+    "volume vs 20d avg = 2.64",
+    "vs Nifty % = 0.28",
+    "event return % = 4.84"
+  ],
+  "HDFCBANK.NS|2024-03-19": [
+    "volume vs 20d avg = 1.92",
+    "vs Nifty % = -0.58",
+    "event return % = -6.02"
+  ],
+  "HDFCBANK.NS|2024-04-19": [
+    "volume vs 20d avg = 3.47",
+    "vs Nifty % = -0.28",
+    "event return % = 4.13"
+  ],
+  "HDFCBANK.NS|2024-05-15": [
+    "volume vs 20d avg = 2.74",
+    "vs Nifty % = 0.93",
+    "event return % = -5.16"
+  ]
+}
